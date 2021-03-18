@@ -81,7 +81,7 @@
     var repulforce = tfdp().strength(-1);
     var stepper1;
     var iter = 0;
-    var alpha = 1.0;
+    var alpha = 0.5;
     // function sleep(d) {
     //     for (var t = Date.now(); Date.now() - t <= d;);
     //   }
@@ -108,6 +108,7 @@
 
       var slider = d3.select(".sliders").append("input");
       slider
+        // .attr("id", "range" + attr)
         .attr("type", "range")
         .attr("min", 0)
         .attr("max", 10000)
@@ -119,6 +120,7 @@
 
       var sliderinput = d3.select(".sliders").append("input");
       sliderinput
+        // .attr("id", "input" + attr)
         .attr("type", "number")
         .attr("value", d);
 
@@ -126,43 +128,63 @@
       slider.on("input", () => {
         var val = +slider.property("value");
         var d = (val / 10000) * (max - min) + min;
-        if (attr == "p" || attr == "c1" || attr == "c2") d = d;
-        else d = Math.pow(10, d);
+        // if (attr == "p" || attr == "c1" || attr == "c2") d = d;
+        // else d = Math.pow(10, d);
+        // sliderinput.property("value") = d;
         if (attr == "K") {
-
+          K = d;
+          alpha = 0.1;
         }
         if (attr == "p") {
-
+          if (d >= 0.99) p = d;
+          else d = 0.99;
+          alpha = 0.1;
         }
-        if (attr == "linkStrength") {
-          console.log("linkStrength", d)
+        if (attr == "a1") {
+          yScaleFactorAttr = d;
+          alpha = 0.1;
         }
-        if (attr == "charge") {
-          console.log("charge", d)
-          // force.force("charge").strength(d);
+        if (attr == "a2") {
+          yScaleFactorRep = d;
+          alpha = 0.1;
         }
+        if (attr == "c2") {
+          DegreeRep = d;
+          alpha = 0.1;
+        }
+        // document.getElementById("input" + attr).property("value") = d;
         document.getElementById("label" + attr).innerHTML = " " + attr + " = " + d.toFixed(3) + ", ";
         // force.alphaTarget(0.3).restart();
       });
 
       sliderinput.on("input", () => {
         var val = +sliderinput.property("value");
+
         var d = val;
         // if (attr == "p" || attr == "c1" || attr == "c2") d = d;
         // else d = Math.pow(10, d);
         if (attr == "K") {
-
+          K = d;
+          alpha = 0.1;
         }
         if (attr == "p") {
-
+          if (d >= 0.99) p = d;
+          else d = 0.99;
+          alpha = 0.1;
         }
-        if (attr == "linkStrength") {
-          console.log("linkStrength", d)
+        if (attr == "a1") {
+          yScaleFactorAttr = d;
+          alpha = 0.1;
         }
-        if (attr == "charge") {
-          console.log("charge", d)
-          // force.force("charge").strength(d);
+        if (attr == "a2") {
+          yScaleFactorRep = d;
+          alpha = 0.1;
         }
+        if (attr == "c2") {
+          DegreeRep = d;
+          alpha = 0.1;
+        }
+        // document.getElementById("range" + attr).property("value") = d;
         document.getElementById("label" + attr).innerHTML = " " + attr + " = " + d.toFixed(3) + ", ";
         // force.alphaTarget(0.3).restart();
       });
@@ -189,7 +211,7 @@
     // makeSlider("Short Range Repulsive Force x-axis Scale", "b2", 0, 10, 1);
     makeSlider("Short Range Repulsive Force Degree", "c2", 1, 10, 2);
 
-    d3.text("data/USPowerGrid.txt_init").then(function (data) {
+    d3.text("https://fahaizhong.github.io/data/USPowerGrid.txt_init").then(function (data) {
       var lines = data.split("\n");
       var header = lines[0].split(" ");
       var N = parseInt(header[0]);
@@ -266,7 +288,7 @@
 
     function step() {
       SimulationStep(alpha);
-      alpha *= 0.996;
+      alpha *= 0.997;
       alpha = Math.max(alpha, 0.01);
       if (iter >= maxiter) {
         stepper1.stop();
