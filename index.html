@@ -334,7 +334,7 @@
       var midy = (miny + maxy) / 2;
       var scale = Math.max(maxy - miny, maxx - minx) * 1.05;
       if (scale > 1.05 * renderScale) renderScale = 1.1 * scale;
-      if (scale < renderScale / 2) renderScale = scale;
+      if (scale < renderScale / 1.2) renderScale = scale;
       console.log(renderScale, scale);
       var pos = nodes.map(d => [(d.x - midx) / renderScale * width + width / 2, ((midy - d.y) / renderScale + (maxy - midy) / renderScale - 0.48) * height + height / 2]);
       positions.data(pos);
