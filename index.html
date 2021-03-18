@@ -202,6 +202,8 @@
         nodes.push({ id: i.toString(), x: Math.random() * 10, y: Math.random() * 10, vx: 0.0, vy: 0.0, index: i });
 
       }
+
+
       for (i = 0; i < E; i++) {
         var temp = lines[i + N + 1].split(" ");
         links.push({ source: nodes[parseInt(temp[0])], target: nodes[parseInt(temp[1])] });
