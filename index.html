@@ -189,7 +189,7 @@
     // makeSlider("Short Range Repulsive Force x-axis Scale", "b2", 0, 10, 1);
     makeSlider("Short Range Repulsive Force Degree", "c2", 1, 10, 2);
 
-    d3.text("https://raw.githubusercontent.com/fahaizhong/graphdata/master/data_init/USPowerGrid.txt_init").then(function (data) {
+    d3.text("data/USPowerGrid.txt_init").then(function (data) {
       var lines = data.split("\n");
       var header = lines[0].split(" ");
       var N = parseInt(header[0]);
