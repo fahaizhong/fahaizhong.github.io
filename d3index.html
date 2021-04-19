@@ -139,7 +139,7 @@
     var pos;
     async function RunSimulation(filename) {
       await new Promise((resolve) => {
-        d3.json(`http://127.0.0.1:5500/${filename}.json`).then(function (data) {
+        d3.json(`https://fahaizhong.github.io/data/${filename}.json`).then(function (data) {
           console.log("complete", data.length);
           data_var = data;
           nodes = data.nodes;
