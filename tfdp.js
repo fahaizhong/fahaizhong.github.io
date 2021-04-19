@@ -72,6 +72,7 @@ function apply(quad, x1, _, x2) {
         w = x2 - x1,
         l = x * x + y * y,
         r = yScaleFactor / Math.pow((1 + xScaleFactor * l),Degree);
+        // r = 1.0 /l;
 
     // Apply the Barnes-Hut approximation if possible.
     // Limit forces for very close nodes; randomize direction if coincident.
@@ -80,6 +81,7 @@ function apply(quad, x1, _, x2) {
         // if (x === 0) x = jiggle(random), l += x * x;
         // if (y === 0) y = jiggle(random), l += y * y;
         // if (l < distanceMin2) l = Math.sqrt(distanceMin2 * l);
+        // r = 1.0 /l;
         node.vx += x * quad.value * alpha * r;
         node.vy += y * quad.value * alpha * r;
       }
